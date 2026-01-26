@@ -19,8 +19,10 @@ int main() {
 
         switch(opc) {
             case 1:
-                printf("\n[Opcion 1] Crear archivo seleccionado...\n");
-                // crearArchivo();
+            	printf("\n[Opcion 1] Crear archivo seleccionado...\n");
+            	system("pause");
+            	system("cls");
+                carga_empleados();
                 break;
             case 2:
                 printf("\n[Opcion 2] Alta de empleado seleccionada...\n");
