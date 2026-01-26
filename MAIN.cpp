@@ -1,9 +1,10 @@
 // MAIN.cpp
 #include <stdio.h>
 #include <stdlib.h>
-#include "MENU.h"     // Tu nuevo menu
-#include "USUARIO.h"  // Tu codigo de validacion
+#include "MENU.h"    
+#include "USUARIO.h" 
 #include "CAMPOS.h"
+#include "BAJALOGICA.h"
 
 int main() {
     int opc;
