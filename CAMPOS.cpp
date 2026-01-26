@@ -3,19 +3,9 @@
 #include <string.h>
 #include <ctype.h> 
 #include <conio.h>
+#include "CAMPOS.h"
 
-struct registro
-{
-	char nombreapell[60];
-	char puesto[10];
-	int sueldo, edad;
-	char turno[10];
-	char sexo[10];
-	char area[10];
-};
-
-
-main (void)
+void carga_empleados()
 {
 	registro r;
 	FILE*archivo;
@@ -26,7 +16,6 @@ main (void)
 	if (archivo == NULL)
     {
         printf("Error: No se pudo crear el archivo.");
-        return 1;
     }
     
     while (opcion == 's'||opcion == 'S')
@@ -75,6 +64,6 @@ main (void)
 	fclose(archivo);
 	printf("\n\nCarga finalizada.");
     getch();
-    return 0;
+
 	
 }

@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "MENU.h"     // Tu nuevo menu
 #include "USUARIO.h"  // Tu codigo de validacion
+#include "CAMPOS.h"
 
 int main() {
     int opc;
