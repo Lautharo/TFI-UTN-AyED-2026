@@ -1,9 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
-#include <conio.h>
+#include "MENU.h" // Incluimos su propia cabecera
 
-main()
-{
-	
+int mostrarMenu() {
+    int opc;
+    printf("1. Opcion Uno\n");
+    printf("2. Opcion Dos\n");
+    printf("Ingrese opcion: ");
+    scanf("%d", &opc);
+    return opc;
 }
