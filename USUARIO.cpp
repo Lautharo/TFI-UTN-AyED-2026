@@ -69,7 +69,7 @@ bool esContraseniaValida(char c[]) {
         if (islower(c[i])) tieneMin = true;
         if (isdigit(c[i])) tieneDig = true;
 
-        // VERIFICACION DE CONSECUTIVOS (La parte difícil)
+        // VERIFICACION DE CONSECUTIVOS
         // Comparamos el caracter actual con el siguiente
         if (i < len - 1) {
             // Si el siguiente es igual al actual + 1 (ej: 'b' es 'a'+1)
