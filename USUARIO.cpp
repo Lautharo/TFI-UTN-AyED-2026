@@ -8,12 +8,12 @@
 // --- FUNCION 1: Validar el Nombre de Usuario ---
 // Reglas: Min 6, Max 10. Comienza minúscula. Min 2 Mayúsculas. Max 3 Digitos.
 bool esUsuarioValido(char u[]) {
-    int len = strlen(u);
+    int lon = strlen(u);
     int mayusculas = 0;
     int digitos = 0;
 
     // 1. Validar longitud
-    if (len < 6 || len > 10) {
+    if (lon < 6 || lon > 10) {
         printf("\n[X] Error: El usuario debe tener entre 6 y 10 caracteres.\n");
         return false;
     }

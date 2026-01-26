@@ -13,7 +13,7 @@ int main()
     
     // Mensaje de prueba (tu print original)
     printf("\nGero gay"); 
-    printf("\nLautaro gay");
+    printf("Lautaro gay");
     
     return 0;
 }
