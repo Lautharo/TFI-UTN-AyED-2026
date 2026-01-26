@@ -1,11 +1,10 @@
-// MENU.cpp
 #include <stdio.h>
 #include <stdlib.h>
-#include "MENU.h" // Incluimos su propia cabecera
+#include "MENU.h"
 
 int mostrarMenuPrincipal() {
     int opcion;
-    system("cls"); // Limpia la pantalla
+    system("cls");
     printf("=================================================\n");
     printf("      SISTEMA DE GESTION DE PERSONAL - YPF       \n");
     printf("=================================================\n\n");
@@ -23,10 +22,10 @@ int mostrarMenuPrincipal() {
     printf("\n=================================================\n");
     printf("Ingrese su opcion: ");
     
-    // Validacion basica para que no rompa si meten letras
+    // Validacion por si escriben
     if (scanf("%d", &opcion) != 1) {
-        while(getchar() != '\n'); // Limpiar buffer
-        return -1; // Retorna error
+        while(getchar() != '\n');
+        return -1;
     }
     
     return opcion;
