@@ -56,19 +56,5 @@ int main() {
 
     } while (opc != 0);
 
-<<<<<<< HEAD
-=======
-int main()
-{
-    // Llamamos a la función que está en el otro archivo
-    int opcion = mostrarMenu(); 
-    
-    printf("\nSeleccionaste la opcion: %d", opcion);
-    
-    // Mensaje de prueba (tu print original)
-    printf("\nGero gay"); 
-    printf("Lautaro gay");
-    
->>>>>>> 44a408b520b02db88bb6159c82443c413d51f7fe
     return 0;
 }
