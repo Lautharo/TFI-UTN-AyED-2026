@@ -21,37 +21,39 @@ int main() {
 
         switch(opc) {
             case 1:
-            	printf("\n[Opcion 1] Crear archivo seleccionado...\n");
+            	printf("\n[1] Crear archivo seleccionado...\n");
             	system("pause");
             	system("cls");
                 carga_empleados();
                 break;
             case 2:
-                printf("\n[Opcion 2] Alta de empleado seleccionada...\n");
+                printf("\n[2] Alta de empleado seleccionada...\n");
                 system("pause");
             	system("cls");
             	grabarInformacion();
                 break;
             case 3:
-                printf("\n[Opcion 3] Baja Logica seleccionada...\n");
+                printf("\n[3] Baja Logica seleccionada...\n");
                 break;
             case 4:
-                printf("\n[Opcion 4] Baja Fisica seleccionada...\n");
+                printf("\n[4] Baja Fisica seleccionada...\n");
                 break;
             case 5:
-                printf("\n[Opcion 5] Modificar datos...\n");
+                printf("\n[5] Modificar datos...\n");
                 break;
             case 6:
-                printf("\n[Opcion 6] Listado general...\n");
+                printf("\n[6] Listado general...\n");
                 break;
             case 7:
-                printf("\n[Opcion 7] Consulta particular...\n");
+                printf("\n[7] Consulta particular...\n");
                 break;
             case 8:
-                printf("\n[Opcion 8] Estructuras Dinamicas...\n");
+                printf("\n[8] Creando Arbol/Lista en memoria...\n");
                 break;
+            case 9:
+            	printf("\n[9] Mostrando estructura dinamica...\n");
             case 0:
-                printf("\nSaliendo del sistema. Guardando datos...\n");
+                printf("\nSaliendo del sistema YPF. Guardando datos...\n");
                 break;
             default:
                 printf("\nOpcion invalida. Intente nuevamente.\n");
