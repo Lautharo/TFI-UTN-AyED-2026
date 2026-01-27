@@ -13,4 +13,5 @@ struct registro
     bool activo; // true = visible, false = borrado logicamente
 };
 void carga_empleados();
+void modificarEmpleado();
 #endif
