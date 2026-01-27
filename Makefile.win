@@ -4,8 +4,8 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = MENU.o MAIN.o USUARIO.o CAMPOS.o ALTA.o BAJALOGICA.o BAJAFISICA.o LISTAINFO.o
-LINKOBJ  = MENU.o MAIN.o USUARIO.o CAMPOS.o ALTA.o BAJALOGICA.o BAJAFISICA.o LISTAINFO.o
+OBJ      = MENU.o MAIN.o USUARIO.o CAMPOS.o ALTA.o BAJALOGICA.o BAJAFISICA.o LISTAINFO.o Mod.o
+LINKOBJ  = MENU.o MAIN.o USUARIO.o CAMPOS.o ALTA.o BAJALOGICA.o BAJAFISICA.o LISTAINFO.o Mod.o
 LIBS     = -L"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib" -L"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/lib" -static-libgcc
 INCS     = -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include"
 CXXINCS  = -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++"
@@ -47,3 +47,6 @@ BAJAFISICA.o: BAJAFISICA.cpp
 
 LISTAINFO.o: LISTAINFO.cpp
 	$(CPP) -c LISTAINFO.cpp -o LISTAINFO.o $(CXXFLAGS)
+
+Mod.o: Mod.cpp
+	$(CPP) -c Mod.cpp -o Mod.o $(CXXFLAGS)
