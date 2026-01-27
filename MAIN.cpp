@@ -4,6 +4,7 @@
 #include "MENU.h"    
 #include "USUARIO.h" 
 #include "CAMPOS.h"
+#include "ALTA.h"
 #include "BAJALOGICA.h"
 
 int main() {
@@ -27,7 +28,9 @@ int main() {
                 break;
             case 2:
                 printf("\n[Opcion 2] Alta de empleado seleccionada...\n");
-                // altaEmpleado();
+                system("pause");
+            	system("cls");
+            	grabarInformacion();
                 break;
             case 3:
                 printf("\n[Opcion 3] Baja Logica seleccionada...\n");

@@ -9,7 +9,7 @@ void carga_empleados()
 {
 	registro r;
 	FILE*archivo;
-	archivo=fopen("campos.dat","w+b");
+	archivo=fopen("campos.dat","wb");
 	
 	char opcion='s';
 	
