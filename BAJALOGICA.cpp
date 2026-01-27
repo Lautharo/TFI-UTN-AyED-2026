@@ -4,10 +4,6 @@
 #include <ctype.h> 
 #include <conio.h> 
 #include "BAJALOGICA.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "BAJALOGICA.h"
 #include "CAMPOS.h"
 void realizarBajaLogica() {
     FILE *f;
