@@ -26,6 +26,9 @@ void carga_empleados()
         printf("Ingrese Nombre y Apellido: ");
         _flushall(); 
         gets(r.nombreapell);
+        // Ingreso de Legajo)
+        printf("Ingrese Legajo: ");
+        scanf("%d", &r.legajo);
         // Ingreso de Edad)
         printf("Ingrese Edad: ");
         scanf("%d", &r.edad);

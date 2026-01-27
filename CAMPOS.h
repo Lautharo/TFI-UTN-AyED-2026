@@ -4,16 +4,13 @@
 struct registro
 {
     char nombreapell[60];
-    char puesto[10];
+    int legajo;
+	char puesto[10];
     int sueldo, edad;
     char turno[10];
     char sexo[10];
-    char area[10];
-    
-    // CAMBIO IMPORTANTE: Agregamos este campo
+    char area[10];    
     bool activo; // true = visible, false = borrado logicamente
 };
-
 void carga_empleados();
-
 #endif
