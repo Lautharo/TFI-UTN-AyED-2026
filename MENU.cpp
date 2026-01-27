@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <conio.h>
 #include <windows.h>
 #include <time.h> 
@@ -10,14 +11,18 @@
 #define ABAJO 80
 #define ENTER 13
 
-// --- HERRAMIENTAS GRAFICAS ---
+// Colores
+#define COLOR_FONDO 0x1F  // Azul fondo, Letra blanca
+#define COLOR_MARCO 0x1B  // Azul fondo, Letra Cyan
+#define COLOR_RESALTADO 0xF1 // Blanco fondo, Letra Azul
+#define COLOR_BARRA 0x9F  // Azul claro fondo, Letra blanca
 
-// Cambiar colores (Fondo y Texto)
+// --- HERRAMIENTAS DE CONSOLA ---
+
 void setColor(int color) {
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
 }
 
-// Mover el cursor a una posición X, Y
 void gotoxy(int x, int y) {
     HANDLE hcon = GetStdHandle(STD_OUTPUT_HANDLE);
     COORD dwPos;
@@ -26,7 +31,6 @@ void gotoxy(int x, int y) {
     SetConsoleCursorPosition(hcon, dwPos);
 }
 
-// Ocultar el cursor parpadeante (queda más profesional)
 void ocultarCursor() {
     HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_CURSOR_INFO info;
@@ -35,51 +39,91 @@ void ocultarCursor() {
     SetConsoleCursorInfo(consoleHandle, &info);
 }
 
-// Dibujar una caja con bordes dobles
-void dibujarCuadro(int x1, int y1, int x2, int y2) {
-    int i;
-    // Caracteres ASCII extendidos para bordes dobles
-    char esqSI = 201, esqSD = 187, esqII = 200, esqID = 188;
-    char lineaH = 205, lineaV = 186;
-
-    setColor(0x1B); // Azul con bordes Celestes (Cyan)
-
-    // Esquinas
-    gotoxy(x1, y1); printf("%c", esqSI);
-    gotoxy(x2, y1); printf("%c", esqSD);
-    gotoxy(x1, y2); printf("%c", esqII);
-    gotoxy(x2, y2); printf("%c", esqID);
-
-    // Líneas Horizontales
-    for(i = x1+1; i < x2; i++) {
-        gotoxy(i, y1); printf("%c", lineaH);
-        gotoxy(i, y2); printf("%c", lineaH);
-    }
-
-    // Líneas Verticales
-    for(i = y1+1; i < y2; i++) {
-        gotoxy(x1, i); printf("%c", lineaV);
-        gotoxy(x2, i); printf("%c", lineaV);
-    }
+int getAnchoConsola() {
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
+    return csbi.srWindow.Right - csbi.srWindow.Left + 1;
 }
 
-// Barra de estado inferior con fecha y hora
-void barraEstado() {
+// --- DIBUJO ---
+
+void dibujarBarraSuperior() {
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
+    int ancho = getAnchoConsola();
     
-    // Dibujamos una franja abajo
-    setColor(0x90); // Fondo Azul Claro (9), Letra Negra (0)
-    gotoxy(0, 24); 
-    // Rellenamos la linea
-    for(int i=0; i<80; i++) printf(" ");
-    
-    gotoxy(2, 24); 
-    printf(" USUARIO: ADMINISTRADOR | FECHA: %02d/%02d/%d | UTN FRT - TFI 2026", 
-           tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
+    setColor(COLOR_BARRA); 
+    gotoxy(0, 0);
+    for(int i=0; i<ancho; i++) printf(" "); 
+
+    gotoxy(2, 0);
+    printf("USUARIO: ADMINISTRADOR");
+
+    char fecha[30];
+    sprintf(fecha, "FECHA: %02d/%02d/%d", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
+    gotoxy(ancho - strlen(fecha) - 2, 0); 
+    printf("%s", fecha);
 }
 
-// --- LOGICA DEL MENU ---
+void dibujarPiePagina() {
+    int ancho = getAnchoConsola();
+    int yPie = 29; 
+    
+    setColor(COLOR_BARRA);
+    gotoxy(0, yPie);
+    for(int i=0; i<ancho; i++) printf(" "); 
+    
+    const char* texto = "UTN FRT - TFI 2026 - GRUPO 11";
+    int x = (ancho - strlen(texto)) / 2;
+    
+    gotoxy(x, yPie);
+    printf("%s", texto);
+}
+
+void dibujarLogoYPF(int y) {
+    int ancho = getAnchoConsola();
+    int x = (ancho - 26) / 2; 
+    
+    setColor(COLOR_FONDO);
+    gotoxy(x, y);   printf(" __   __  _____   _____ ");
+    gotoxy(x, y+1); printf(" \\ \\ / / |  __ \\ |  ___|");
+    gotoxy(x, y+2); printf("  \\ V /  | |__) || |__  ");
+    gotoxy(x, y+3); printf("   | |   |  ___/ |  __| ");
+    gotoxy(x, y+4); printf("   | |   | |     | |    ");
+    gotoxy(x, y+5); printf("   |_|   |_|     |_|    ");
+}
+
+void dibujarCajaMenu(int yInicio) {
+    int ancho = getAnchoConsola();
+    int anchoCaja = 60;
+    int altoCaja = 13;
+    
+    int x1 = (ancho - anchoCaja) / 2;
+    int x2 = x1 + anchoCaja;
+    int y2 = yInicio + altoCaja;
+    int i;
+
+    setColor(COLOR_MARCO); 
+
+    for(i = x1; i <= x2; i++) {
+        gotoxy(i, yInicio); printf("%c", 205);
+        gotoxy(i, y2); printf("%c", 205);
+    }
+    for(i = yInicio; i <= y2; i++) {
+        gotoxy(x1, i); printf("%c", 186);
+        gotoxy(x2, i); printf("%c", 186);
+    }
+    gotoxy(x1, yInicio); printf("%c", 201);
+    gotoxy(x2, yInicio); printf("%c", 187);
+    gotoxy(x1, y2); printf("%c", 200);
+    gotoxy(x2, y2); printf("%c", 188);
+    
+    const char* titulo = " MENU PRINCIPAL ";
+    gotoxy(x1 + (anchoCaja - strlen(titulo))/2, yInicio);
+    printf("%s", titulo);
+}
+
+// --- FUNCION PRINCIPAL ---
 
 int mostrarMenuPrincipal() {
     const char* opciones[] = {
@@ -94,73 +138,63 @@ int mostrarMenuPrincipal() {
         "9. Estructura Dinamica (Mostrar)",
         "0. Salir del Sistema"
     };
-    
     int nOpciones = 10;
-    int cursor = 0; // Donde empieza seleccionado
+    int cursor = 0;
     char tecla;
     
-    // Configuración Inicial
-    system("color 1F"); // Fondo Azul YPF, Letra Blanca
+    system("mode con: cols=120 lines=30");
+    SetConsoleTitle("SISTEMA DE GESTION YPF"); 
     ocultarCursor();
 
     while(1) {
-        // Redibujar pantalla solo lo necesario o limpiar
-        // Para evitar parpadeo, limpiamos y redibujamos todo el frame
-        system("cls"); 
+        setColor(COLOR_FONDO);
+        system("cls");
         
-        // 1. DIBUJAR MARCO PRINCIPAL (Centrado)
-        dibujarCuadro(15, 2, 65, 21);
-        
-        // 2. DIBUJAR CABECERA DENTRO DEL MARCO
-        setColor(0x1E); // Azul con letra Amarilla (E)
-        gotoxy(32, 4); printf("SISTEMA YPF");
-        gotoxy(32, 5); printf("-----------");
+        dibujarBarraSuperior();
+        dibujarLogoYPF(3);
+        dibujarCajaMenu(10); 
+        dibujarPiePagina();
 
-        // 3. DIBUJAR OPCIONES
+        int ancho = getAnchoConsola();
         for(int i = 0; i < nOpciones; i++) {
-            gotoxy(20, 7 + i); // Posicionar X=20, Y=7+i
+            int largoTexto = 40; 
+            int xOpcion = (ancho - largoTexto) / 2;
+            int yOpcion = 12 + i; 
+            
+            gotoxy(xOpcion, yOpcion);
             
             if(i == cursor) {
-                // Opción SELECCIONADA: Invertir colores (Blanco fondo, Azul letra)
-                setColor(0xF1); 
-                printf(" >> %-35s << ", opciones[i]); 
+                setColor(COLOR_RESALTADO);
+                printf(" >> %-30s << ", opciones[i]);
             } else {
-                // Opción NORMAL: Azul fondo, Blanca letra
-                setColor(0x1F); 
-                printf("    %-35s    ", opciones[i]);
+                setColor(COLOR_FONDO);
+                printf("    %-30s    ", opciones[i]);
             }
         }
-        
-        // 4. BARRA DE ESTADO
-        barraEstado();
 
-        // 5. CAPTURAR TECLA
+        // --- AQUI ESTABA EL PROBLEMA DEL SONIDO ---
+        // Input
         tecla = getch();
-
-        if(tecla == -32 || tecla == 224) { // Código de flechas
-            tecla = getch(); // Capturar dirección
+        if(tecla == -32 || tecla == 224) { 
+            tecla = getch(); 
             
             if(tecla == ARRIBA) {
-                cursor--;
-                if(cursor < 0) cursor = nOpciones - 1; // Vuelta completa abajo
-                Beep(600, 20); // Sonido cortito
+                cursor = (cursor > 0) ? cursor - 1 : nOpciones - 1;
+                // AUMENTADO: 750Hz durante 30ms (Tic audible)
+                Beep(750, 30); 
             }
-            
             if(tecla == ABAJO) {
-                cursor++;
-                if(cursor >= nOpciones) cursor = 0; // Vuelta completa arriba
-                Beep(600, 20); // Sonido cortito
+                cursor = (cursor < nOpciones - 1) ? cursor + 1 : 0;
+                // AUMENTADO: 750Hz durante 30ms
+                Beep(750, 30);
             }
         } 
         else if(tecla == ENTER) {
-            Beep(1000, 80); // Sonido de confirmación
-            setColor(0x07); // Volver a color normal antes de salir
-            system("cls");
+            // AUMENTADO: 1000Hz durante 100ms (Bip fuerte de OK)
+            Beep(1000, 100); 
             
-            // Lógica para devolver el int correcto al MAIN
-            // El array va de 0 a 9.
-            // Si elige cursor 0 (Opción 1), devolvemos 1.
-            // Si elige cursor 9 (Opción 0), devolvemos 0.
+            setColor(0x07); 
+            system("cls");
             if (cursor == 9) return 0;
             return cursor + 1;
         }
