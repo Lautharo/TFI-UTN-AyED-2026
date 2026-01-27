@@ -34,6 +34,7 @@ int main() {
                 break;
             case 3:
                 printf("\n[3] Baja Logica seleccionada...\n");
+                void realizarBajaLogica();
                 break;
             case 4:
                 printf("\n[4] Baja Fisica seleccionada...\n");
