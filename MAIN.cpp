@@ -6,6 +6,7 @@
 #include "CAMPOS.h"
 #include "ALTA.h"
 #include "BAJALOGICA.h"
+#include "BAJAFISICA.h"
 
 int main() {
     int opc;
@@ -34,10 +35,15 @@ int main() {
                 break;
             case 3:
                 printf("\n[3] Baja Logica seleccionada...\n");
+                system("pause");
+            	system("cls");
                 void realizarBajaLogica();
                 break;
             case 4:
                 printf("\n[4] Baja Fisica seleccionada...\n");
+                system("pause");
+            	system("cls");                
+                realizarBajaFisica();
                 break;
             case 5:
                 printf("\n[5] Modificar datos...\n");
