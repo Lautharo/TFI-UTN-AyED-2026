@@ -7,6 +7,7 @@
 #include "ALTA.h"
 #include "BAJALOGICA.h"
 #include "BAJAFISICA.h"
+#include "LISTAINFO.h"
 
 int main() {
     int opc;
@@ -50,6 +51,9 @@ int main() {
                 break;
             case 6:
                 printf("\n[6] Listado general...\n");
+                system("pause");
+            	system("cls");
+                void realizarListaInfo();
                 break;
             case 7:
                 printf("\n[7] Consulta particular...\n");
