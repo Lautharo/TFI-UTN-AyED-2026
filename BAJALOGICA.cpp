@@ -6,14 +6,14 @@
 #include "BAJALOGICA.h"
 #include "CAMPOS.h"
 void realizarBajaLogica() {
-    FILE *f;
-    registro emp;
+    FILE *m;
+    reg r;
     int legajoBuscado;
     int encontrado = 0;
     char respuesta; 
-    f = fopen("Campos.dat", "r+b");
+    m = fopen("Campos.dat", "r+b");
 
-    if (f == NULL) {
+    if (m == NULL) {
         printf("\nERROR: No se pudo abrir el archivo o no existen empleados cargados.\n");
         return;
     }
@@ -23,31 +23,30 @@ void realizarBajaLogica() {
     scanf("%d", &legajoBuscado);
 
     // 2. Recorremos el archivo leyendo registro por registro
-    while (fread(&emp, sizeof(registro), 1, f) == 1) {
+    while (fread(&r, sizeof(reg), 1, m) == 1) {
         
         // Si el legajo coincide Y el empleado está activo
-        if (emp.legajo == legajoBuscado && emp.activo == true) {
+        if (r.legajo == legajoBuscado && r.activo == true) {
             
             // 3. Mostramos a quién encontramos (por seguridad)
             printf("\n--- Empleado Encontrado ---\n");
-            printf("Nombre y apellido: %s\n", emp.nombreapell);
-            printf("Area ID: %d\n", emp.area);
+            printf("Nombre y apellido: %s\n", r.nombreapell);
+            printf("Area ID: %d\n", r.area);
             
             printf("\nEsta seguro de darlo de baja? (s/n): ");
             fflush(stdin); // Limpiar buffer antes de leer char
             scanf("%c", &respuesta);
 
             if (respuesta == 's' || respuesta == 'S') {
-                // 4. EL TRUCO: Retroceder el puntero
                 // Como el fread avanzó, tenemos que volver 1 registro atrás
                 // para escribir ENCIMA del que acabamos de leer.
-                fseek(f, -((long)sizeof(registro)), SEEK_CUR);
+                fseek(m, -((long)sizeof(reg)), SEEK_CUR);
 
                 // 5. Modificamos el campo en memoria
-                emp.activo = false; 
+                r.activo = false; 
 
                 // 6. Escribimos el registro modificado en el archivo
-                fwrite(&emp, sizeof(registro), 1, f);
+                fwrite(&r, sizeof(reg), 1, m);
                 
                 printf("\n>>> El empleado fue dado de baja exitosamente.\n");
             } else {
@@ -61,6 +60,6 @@ void realizarBajaLogica() {
         printf("\nNo se encontro ningun empleado activo con el Legajo %d.\n", legajoBuscado);
     }
 
-    fclose(f);
+    fclose(m);
     system("pause");
 }

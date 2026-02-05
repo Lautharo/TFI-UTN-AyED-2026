@@ -9,23 +9,23 @@
 
 void realizarBajaFisica()
 {
-	struct registro r;
-    FILE *archivoOriginal;
-    FILE *archivoTemporal;
+	struct reg r;
+    FILE *archivoO;
+    FILE *archivoT;
     
     int legajoBuscado;
     int encontrado =0;
     char confirmacion;
 
    
-    archivoOriginal = fopen("campos.dat", "rb");
+    archivoO = fopen("campos.dat", "rb");
     
-    archivoTemporal = fopen("temp.dat", "wb");
+    archivoT = fopen("temp.dat", "wb");
 
-    if (archivoOriginal == NULL || archivoTemporal == NULL)
+    if (archivoO == NULL || archivoT == NULL)
     {
         printf("Error: No se pudo abrir el archivo original o crear el temporal.");
-        if (archivoOriginal != NULL) fclose(archivoOriginal); 
+        if (archivoO != NULL) fclose(archivoO); 
         return;
     }
 
@@ -35,9 +35,9 @@ void realizarBajaFisica()
     printf("Ingrese el Legajo a eliminar: ");
     scanf("%d", &legajoBuscado);
 
-    fread(&r, sizeof(struct registro), 1, archivoOriginal);
+    fread(&r, sizeof(struct reg), 1, archivoO);
 
-    while (!feof(archivoOriginal))
+    while (!feof(archivoO))
     {
         if (r.legajo == legajoBuscado)
         {
@@ -56,20 +56,20 @@ void realizarBajaFisica()
             }
             else
             {
-                fwrite(&r, sizeof(struct registro), 1, archivoTemporal);
+                fwrite(&r, sizeof(struct reg), 1, archivoT);
                 printf("\nOperacion cancelada. El registro se mantiene.\n");
             }
         }
         else
         {
-            fwrite(&r, sizeof(struct registro), 1, archivoTemporal);
+            fwrite(&r, sizeof(struct reg), 1, archivoT);
         }
 
-        fread(&r, sizeof(struct registro), 1, archivoOriginal);
+        fread(&r, sizeof(struct reg), 1, archivoO);
     }
 
-    fclose(archivoOriginal);
-    fclose(archivoTemporal);
+    fclose(archivoO);
+    fclose(archivoT);
 
     if (encontrado == 1)
     {

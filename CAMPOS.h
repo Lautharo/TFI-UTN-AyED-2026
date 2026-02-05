@@ -1,7 +1,7 @@
 #ifndef CAMPOS_H
 #define CAMPOS_H
 
-struct registro
+struct reg
 {
     char nombreapell[60];
     int legajo;

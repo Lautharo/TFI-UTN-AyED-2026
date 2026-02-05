@@ -7,13 +7,13 @@
 
 void carga_empleados()
 {
-	registro r;
-	FILE*archivo;
-	archivo=fopen("campos.dat","wb");
+	reg r;
+	FILE*m;
+	m =fopen("campos.dat","wb");
 	
 	char opcion='s';
 	
-	if (archivo == NULL)
+	if (m == NULL)
     {
         printf("Error: No se pudo crear el archivo.");
     }
@@ -59,12 +59,12 @@ void carga_empleados()
     
 	
 	    
-        fwrite(&r, sizeof(struct registro), 1, archivo);
+        fwrite(&r, sizeof(struct reg), 1, m);
         printf("\nregistro guardado exitosamente.\n");
         printf("Desea ingresar otro empleado? (s/n): ");
         opcion = getch();
 	}
-	fclose(archivo);
+	fclose(m);
 	printf("\n\nCarga finalizada.");
     getch();
 

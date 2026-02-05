@@ -8,14 +8,14 @@
 
 void grabarInformacion()
 {
-    struct registro r;
-    FILE *archivo;
+    struct reg r;
+    FILE *m;
     
     // IMPORTANTE: "ab" significa Append Binary (Agregar al final)
     // Si usas "w+b" aquí, borrarías todo cada vez que agregues uno nuevo.
-    archivo = fopen("campos.dat", "ab"); 
+    m = fopen("campos.dat", "ab"); 
     
-    if (archivo == NULL)
+    if (m == NULL)
     {
         printf("\n[X] Error: No se pudo abrir el archivo de empleados.\n");
         return; // Salimos si falla
@@ -55,12 +55,12 @@ void grabarInformacion()
         gets(r.area); 
     
         // Guardamos el registro al final del archivo
-        fwrite(&r, sizeof(struct registro), 1, archivo);
+        fwrite(&r, sizeof(struct reg), 1, m);
         
         printf("\n[!] Empleado agregado exitosamente.\n");
         printf("Desea agregar otro? (s/n): ");
         opcion = getch();
     }
     
-    fclose(archivo);
+    fclose(m);
 }
