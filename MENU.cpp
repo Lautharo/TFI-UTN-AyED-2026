@@ -428,3 +428,68 @@ int mostrarSelectorFlotante(const char* titulo, const vector<string> &opciones, 
         }
     }
 }
+
+// --- PANTALLA DE SALIDA ---
+void mostrarSalida() {
+    ocultarCursor();
+    setColor(COLOR_FONDO); // Azul
+    system("cls");
+    
+    dibujarLogoYPF(5);
+    
+    int ancho = getAnchoConsola();
+    
+    // 1. Animacion "Guardando"
+    setColor(0x1E); // Amarillo
+    const char* msjGuardando = "GUARDANDO CAMBIOS EN LA BASE DE DATOS...";
+    gotoxy((ancho - strlen(msjGuardando))/2, 14); 
+    printf("%s", msjGuardando);
+    
+    // Barrita de progreso rapida
+    setColor(0x1B); // Cyan
+    int xBarra = (ancho - 20) / 2;
+    gotoxy(xBarra, 16); 
+    for(int i=0; i<20; i++) {
+        printf("%c", 219); // Bloque solido
+        Sleep(40); // Velocidad
+    }
+    
+    Sleep(500); // Pequeña pausa
+    
+    // 2. Cartel de Despedida
+    setColor(COLOR_FONDO); 
+    system("cls");
+    dibujarLogoYPF(4);
+    
+    // Dibujamos un marco elegante para el saludo
+    int anchoCaja = 50;
+    int xBox = (ancho - anchoCaja) / 2;
+    int yBox = 13;
+    
+    setColor(COLOR_MARCO);
+    // Borde superior
+    gotoxy(xBox, yBox); printf("%c", 201); for(int i=0;i<anchoCaja-2;i++) printf("%c",205); printf("%c", 187);
+    // Laterales
+    gotoxy(xBox, yBox+1); printf("%c", 186); gotoxy(xBox+anchoCaja-1, yBox+1); printf("%c", 186);
+    gotoxy(xBox, yBox+2); printf("%c", 186); gotoxy(xBox+anchoCaja-1, yBox+2); printf("%c", 186);
+    gotoxy(xBox, yBox+3); printf("%c", 186); gotoxy(xBox+anchoCaja-1, yBox+3); printf("%c", 186);
+    // Borde inferior
+    gotoxy(xBox, yBox+4); printf("%c", 200); for(int i=0;i<anchoCaja-2;i++) printf("%c",205); printf("%c", 188);
+    
+    // Textos
+    setColor(0x1F); // Blanco Brillante
+    const char* txt1 = "GRACIAS POR UTILIZAR EL SISTEMA";
+    gotoxy((ancho - strlen(txt1))/2, yBox+1); printf("%s", txt1);
+    
+    setColor(0x1E); // Amarillo
+    const char* txt2 = "HASTA LUEGO";
+    gotoxy((ancho - strlen(txt2))/2, yBox+3); printf("%s", txt2);
+    
+    dibujarPiePagina();
+    
+    Sleep(2000); // Esperar 2 segundos para que se lea
+    
+    // Volvemos a negro para entregar el control al sistema operativo limpiamente
+    setColor(0x07); 
+    system("cls");
+}

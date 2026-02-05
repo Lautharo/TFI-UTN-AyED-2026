@@ -8,6 +8,8 @@
 #include "BAJALOGICA.h"
 #include "BAJAFISICA.h"
 #include "LISTAINFO.h"
+#include "CONSULTA.h"
+#include "ARBOL.h"
 
 int main() {
     int opc;
@@ -47,19 +49,18 @@ int main() {
                 realizarListaInfo();
                 break;
             case 7:
-            	mostrarPantallaCarga("PROXIMAMENTE...");
-                printf("\n[7] Consulta particular...\n");
+				mostrarPantallaCarga("BUSCANDO EN LA BASE DE DATOS...");
+                realizarConsulta();
                 break;
             case 8:
-            	mostrarPantallaCarga("PROXIMAMENTE...");
-                printf("\n[8] Creando Arbol/Lista en memoria...\n");
+            	mostrarPantallaCarga("CARGANDO DATOS EN MEMORIA...");
+                cargarArbolEnMemoria();
                 break;
             case 9:
-            	mostrarPantallaCarga("PROXIMAMENTE...");
-            	printf("\n[9] Mostrando estructura dinamica...\n");
+            	mostrarArbolOrdenado();
             	break;
             case 0:
-                printf("\nSaliendo del sistema YPF. Guardando datos...\n");
+                mostrarSalida();
                 break;
             default:
                 printf("\nOpcion invalida. Intente nuevamente.\n");

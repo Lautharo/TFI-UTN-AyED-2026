@@ -21,4 +21,6 @@ int mostrarSelectorFlotante(const char* titulo, const vector<string> &opciones, 
 // 4. Dibuja la caja azul (Marco)
 void dibujarCajaMenu(int yInicio, int altoCaja);
 
+void mostrarSalida();
+
 #endif
