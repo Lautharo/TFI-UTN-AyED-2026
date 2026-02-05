@@ -23,4 +23,6 @@ void dibujarCajaMenu(int yInicio, int altoCaja);
 
 void mostrarSalida();
 
+void setUsuarioActual(const char* nombre);
+
 #endif

@@ -11,6 +11,8 @@
 #include <iostream>
 using namespace std;
 
+char usuarioLogueado[30] = "INVITADO";
+
 // Definimos códigos de teclas
 #define ARRIBA 72
 #define ABAJO 80
@@ -67,7 +69,7 @@ void dibujarBarraSuperior(int musicaActiva) {
 
     // 2. Usuario (Izquierda)
     gotoxy(2, 0);
-    printf("USUARIO: ADMINISTRADOR");
+    printf("USUARIO: %-20s", usuarioLogueado);
 
     // 3. ESTADO MUSICA (Centro) - NUEVO
     const char* txtMusicaOn =  " [M] MUSICA: ON  ";
@@ -492,4 +494,12 @@ void mostrarSalida() {
     // Volvemos a negro para entregar el control al sistema operativo limpiamente
     setColor(0x07); 
     system("cls");
+}
+
+void setUsuarioActual(const char* nombre) {
+    if(strlen(nombre) > 0) {
+        strcpy(usuarioLogueado, nombre);
+        // Opcional: Convertir a mayusculas para estilo YPF
+        strupr(usuarioLogueado); 
+    }
 }

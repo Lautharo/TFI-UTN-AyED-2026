@@ -4,6 +4,7 @@
 #include <ctype.h> 
 #include <conio.h> 
 #include "USUARIO.h"
+#include "MENU.h"
 
 // --- FUNCION 1: Validar el Nombre de Usuario ---
 // Reglas: Min 6, Max 10. Comienza minúscula. Min 2 Mayúsculas. Max 3 Digitos.
@@ -142,6 +143,8 @@ void regUser() {
     printf("\nNombre y Apellido del empleado: ");
     _flushall();
     gets(r.apeNom);
+    
+    setUsuarioActual(r.apeNom);
     
     r.rol = 2; // Por defecto rol normal
     r.activo = true;
