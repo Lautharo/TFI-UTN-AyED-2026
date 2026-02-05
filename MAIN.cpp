@@ -31,18 +31,15 @@ int main() {
 			    grabarInformacion(); 
 			    break;
             case 3:
-                printf("\n[3] Baja Logica seleccionada...\n");
-                system("pause");
-            	system("cls");
+                mostrarPantallaCarga("ACCEDIENDO AL MODULO DE BAJAS...");
                 realizarBajaLogica();
                 break;
             case 4:
-                printf("\n[4] Baja Fisica seleccionada...\n");
-                system("pause");
-            	system("cls");                
+                mostrarPantallaCarga("ACCEDIENDO AL MODULO DE ELIMINACION...");              
                 realizarBajaFisica();
                 break;
             case 5:
+            	mostrarPantallaCarga("PROXIMAMENTE...");
                 printf("\n[5] Modificar datos...\n");
                 break;
             case 6:
@@ -50,13 +47,17 @@ int main() {
                 realizarListaInfo();
                 break;
             case 7:
+            	mostrarPantallaCarga("PROXIMAMENTE...");
                 printf("\n[7] Consulta particular...\n");
                 break;
             case 8:
+            	mostrarPantallaCarga("PROXIMAMENTE...");
                 printf("\n[8] Creando Arbol/Lista en memoria...\n");
                 break;
             case 9:
+            	mostrarPantallaCarga("PROXIMAMENTE...");
             	printf("\n[9] Mostrando estructura dinamica...\n");
+            	break;
             case 0:
                 printf("\nSaliendo del sistema YPF. Guardando datos...\n");
                 break;
