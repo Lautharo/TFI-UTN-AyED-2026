@@ -5,18 +5,18 @@
 
 void realizarListaInfo()
 {
-    struct registro r; 
-    FILE *archivo;
+    struct reg r; 
+    FILE *m;
     int cont = 0;
 
     system("CLS");
     printf("=== LISTADO GENERAL DE EMPLEADOS ===\n\n");
 
    
-    archivo = fopen("campos.dat", "rb");
+    m = fopen("campos.dat", "rb");
 
    
-    if (archivo == NULL)
+    if (m == NULL)
     {
         printf("[ERROR]: No se pudo abrir el archivo 'campos.dat'.\n");
         printf("Causas probables:\n");
@@ -32,9 +32,9 @@ void realizarListaInfo()
     printf("--------------------------------------------------------------------------\n");
 
    
-    fread(&r, sizeof(struct registro), 1, archivo);
+    fread(&r, sizeof(struct reg), 1, m);
 
-    while (!feof(archivo))
+    while (!feof(m))
     {
         printf("%-10d %-25s %-5d $%-9d %-15s\n", 
                r.legajo, 
@@ -45,11 +45,11 @@ void realizarListaInfo()
         
         cont++;
 
-        fread(&r, sizeof(struct registro), 1, archivo);
+        fread(&r, sizeof(struct reg), 1, m);
     }
 
   
-    fclose(archivo);
+    fclose(m);
 
   
     if (cont == 0)
