@@ -26,12 +26,10 @@ int main() {
             	mostrarPantallaCarga("INICIANDO MODULO...");
 			    carga_empleados();
 			    break;
-            case 2:
-                printf("\n[2] Alta de empleado seleccionada...\n");
-                system("pause");
-            	system("cls");
-            	grabarInformacion();
-                break;
+			case 2:
+			    mostrarPantallaCarga("ACCEDIENDO AL SISTEMA DE ALTA...");
+			    grabarInformacion(); 
+			    break;
             case 3:
                 printf("\n[3] Baja Logica seleccionada...\n");
                 system("pause");
