@@ -6,6 +6,10 @@
 #include <time.h> 
 #include "MENU.h"
 #include "SONIDO.h" // <--- IMPORTANTE: Incluimos tu modulo de sonido
+#include <vector>
+#include <string>
+#include <iostream>
+using namespace std;
 
 // Definimos códigos de teclas
 #define ARRIBA 72
@@ -115,26 +119,104 @@ void dibujarLogoYPF(int y) {
     gotoxy(x, y+5); printf("   |_|   |_|     |_|    ");
 }
 
-void dibujarCajaMenu(int yInicio) {
+void dibujarCajaMenu(int yInicio, int altoCaja) { 
     int ancho = getAnchoConsola();
     int anchoCaja = 60;
-    int altoCaja = 13;
+    
+    // IMPORTANTE: BORRA la linea que decia "int altoCaja = 13;"
+    // porque ahora el tamaño viene de afuera (el parametro de arriba).
+    
     int x1 = (ancho - anchoCaja) / 2;
     int x2 = x1 + anchoCaja;
-    int y2 = yInicio + altoCaja;
+    int y2 = yInicio + altoCaja; // Usa el alto variable
     int i;
 
     setColor(COLOR_MARCO); 
 
+    // Dibujamos bordes (igual que antes)
     for(i = x1; i <= x2; i++) { gotoxy(i, yInicio); printf("%c", 205); gotoxy(i, y2); printf("%c", 205); }
     for(i = yInicio; i <= y2; i++) { gotoxy(x1, i); printf("%c", 186); gotoxy(x2, i); printf("%c", 186); }
     gotoxy(x1, yInicio); printf("%c", 201); gotoxy(x2, yInicio); printf("%c", 187);
     gotoxy(x1, y2); printf("%c", 200); gotoxy(x2, y2); printf("%c", 188);
     
-    const char* titulo = " MENU PRINCIPAL ";
-    gotoxy(x1 + (anchoCaja - strlen(titulo))/2, yInicio);
-    printf("%s", titulo);
+    // Solo dibujamos el titulo si es el Menu Principal (alto fijo 13)
+    // O puedes quitar el titulo de la caja para que sea generica
+    if (altoCaja == 13) {
+        const char* titulo = " MENU PRINCIPAL ";
+        gotoxy(x1 + (anchoCaja - strlen(titulo))/2, yInicio);
+        printf("%s", titulo);
+    }
 }
+
+int mostrarSubMenu(string titulo, const vector<string> &opciones) {
+    int cursor = 0;
+    char tecla;
+    int nOpciones = opciones.size(); // ¡El vector nos dice su tamaño solo!
+    
+    // Calculamos la altura de la caja dinámicamente
+    int yInicioCaja = 10;
+    int altoCaja = nOpciones + 4;
+
+    ocultarCursor();
+
+    while(1) {
+        setColor(COLOR_FONDO);
+        system("cls"); 
+        
+        // Dibujamos el entorno
+        dibujarBarraSuperior(1); 
+        dibujarLogoYPF(3);
+        dibujarPiePagina();
+        
+        // Dibujamos la caja
+        dibujarCajaMenu(yInicioCaja, altoCaja);
+        
+        // Titulo centrado
+        int ancho = getAnchoConsola();
+        int xTitulo = (ancho - titulo.length()) / 2;
+        setColor(0x1E); // Amarillo
+        gotoxy(xTitulo, yInicioCaja);
+        printf(" %s ", titulo.c_str()); // .c_str() es necesario para printf
+
+        // Dibujar Opciones desde el Vector
+        for(int i = 0; i < nOpciones; i++) {
+            int largoTexto = 40; 
+            int xOpcion = (ancho - largoTexto) / 2;
+            int yOpcion = yInicioCaja + 2 + i; 
+            
+            gotoxy(xOpcion, yOpcion);
+            
+            if(i == cursor) {
+                setColor(COLOR_RESALTADO);
+                // Accedemos al texto del vector con opciones[i]
+                printf(" >> %-30s << ", opciones[i].c_str());
+            } else {
+                setColor(COLOR_FONDO);
+                printf("    %-30s    ", opciones[i].c_str());
+            }
+        }
+
+        // Control (Igual que siempre)
+        tecla = getch();
+        if(tecla == -32 || tecla == 224) { 
+            tecla = getch(); 
+            if(tecla == ARRIBA) {
+                cursor = (cursor > 0) ? cursor - 1 : nOpciones - 1;
+                Beep(750, 30); 
+            }
+            if(tecla == ABAJO) {
+                cursor = (cursor < nOpciones - 1) ? cursor + 1 : 0;
+                Beep(750, 30);
+            }
+        } 
+        else if(tecla == ENTER) {
+            Beep(1000, 100);
+            return cursor; // Devuelve 0, 1, 2...
+        }
+        else if(tecla == 27) return -1; // Escape
+    }
+}
+
 
 // --- FUNCION PRINCIPAL ---
 
@@ -176,7 +258,7 @@ int mostrarMenuPrincipal() {
         dibujarBarraSuperior(musicaActiva);
         
         dibujarLogoYPF(3);
-        dibujarCajaMenu(10); 
+        dibujarCajaMenu(10, 13); 
         dibujarPiePagina();
 
         int ancho = getAnchoConsola();
