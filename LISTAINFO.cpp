@@ -30,7 +30,6 @@ void realizarListaInfo()
    
     printf("%-10s %-25s %-5s %-10s %-15s\n", "LEGAJO", "NOMBRE", "EDAD", "SUELDO", "PUESTO");
     printf("--------------------------------------------------------------------------\n");
-    getch();
 
    
     fread(&r, sizeof(struct reg), 1, m);

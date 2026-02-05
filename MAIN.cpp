@@ -34,7 +34,7 @@ int main() {
                 printf("\n[3] Baja Logica seleccionada...\n");
                 system("pause");
             	system("cls");
-                void realizarBajaLogica();
+                realizarBajaLogica();
                 break;
             case 4:
                 printf("\n[4] Baja Fisica seleccionada...\n");
@@ -46,10 +46,8 @@ int main() {
                 printf("\n[5] Modificar datos...\n");
                 break;
             case 6:
-                printf("\n[6] Listado general...\n");
-                system("pause");
-            	system("cls");
-                void realizarListaInfo();
+            	mostrarPantallaCarga("ACCEDIENDO AL LISTADO...");
+                realizarListaInfo();
                 break;
             case 7:
                 printf("\n[7] Consulta particular...\n");
