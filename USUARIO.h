@@ -2,7 +2,7 @@
 #define USUARIO_H
 
 // Estructura para guardar en el archivo
-struct Usuario {
+struct User {
     char usuario[11];       // 10 chars
     char contrasenia[35];   // 32 chars
     char apeNom[61];        // Nombre y Apellido
@@ -11,9 +11,9 @@ struct Usuario {
 };
 
 // Prototipos de funciones
-void registrarUsuario(); 
-bool esUsuarioValido(char u[]);
-bool esContraseniaValida(char c[]);
-void capturarContrasenia(char pass[]);
+void regUser(); 
+bool UserVal(char u[]);
+bool ContraVal(char c[]);
+void capContra(char pass[]);
 
 #endif

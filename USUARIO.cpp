@@ -7,7 +7,7 @@
 
 // --- FUNCION 1: Validar el Nombre de Usuario ---
 // Reglas: Min 6, Max 10. Comienza minúscula. Min 2 Mayúsculas. Max 3 Digitos.
-bool esUsuarioValido(char u[]) {
+bool UserVal(char u[]) {
     int len = strlen(u);
     int mayusculas = 0;
     int digitos = 0;
@@ -51,7 +51,7 @@ bool esUsuarioValido(char u[]) {
 // --- FUNCION 2: Validar la Contraseña ---
 // Reglas: Min 6 chars. Al menos 1 mayus, 1 minus, 1 digito.
 // NO puede tener caracteres consecutivos ascendentes (ej: abc, 123, BCD).
-bool esContraseniaValida(char c[]) {
+bool ContraVal(char c[]) {
     int len = strlen(c);
     bool tieneMay = false;
     bool tieneMin = false;
@@ -89,7 +89,7 @@ bool esContraseniaValida(char c[]) {
 }
 
 // --- FUNCION 3: Captura con asteriscos ---
-void capturarContrasenia(char pass[]) {
+void capContra(char pass[]) {
     char caracter;
     int i = 0;
     
@@ -117,9 +117,9 @@ void capturarContrasenia(char pass[]) {
 }
 
 // --- FUNCION PRINCIPAL DE REGISTRO ---
-void registrarUsuario() {
-    Usuario reg;
-    FILE *f;
+void regUser() {
+    User r;
+    FILE *m;
 
     system("cls");
     printf("=== REGISTRO DE NUEVO USUARIO ===\n");
@@ -128,32 +128,32 @@ void registrarUsuario() {
     do {
         printf("\nUsuario (Min 6-10, Inicio minuscula, 2 Mayus, Max 3 num): ");
         _flushall();
-        gets(reg.usuario);
-    } while (!esUsuarioValido(reg.usuario));
+        gets(r.usuario);
+    } while (!UserVal(r.usuario));
 
     // 2. Pedir Contraseña
     do {
         printf("\nContrasenia (Min 6, Mayus+Minus+Num, No consecutivos): ");
-        capturarContrasenia(reg.contrasenia);
+        capContra(r.contrasenia);
         printf("\n");
-    } while (!esContraseniaValida(reg.contrasenia));
+    } while (!ContraVal(r.contrasenia));
 
     // 3. Pedir Nombre Real
     printf("\nNombre y Apellido del empleado: ");
     _flushall();
-    gets(reg.apeNom);
+    gets(r.apeNom);
     
-    reg.rol = 2; // Por defecto rol normal
-    reg.activo = true;
+    r.rol = 2; // Por defecto rol normal
+    r.activo = true;
 
     // 4. Guardar en archivo
-    f = fopen("Usuarios.dat", "ab"); // "ab" para agregar al final
-    if (f == NULL) {
+    m = fopen("Usuarios.dat", "ab"); // "ab" para agregar al final
+    if (m == NULL) {
         printf("Error al abrir el archivo.\n");
         return;
     }
-    fwrite(&reg, sizeof(Usuario), 1, f);
-    fclose(f);
+    fwrite(&r, sizeof(User), 1, m	);
+    fclose(m);
 
     printf("\n[!] Usuario registrado con exito!\n");
     system("pause");
