@@ -217,6 +217,50 @@ int mostrarSubMenu(string titulo, const vector<string> &opciones) {
     }
 }
 
+// --- PANTALLA DE CARGA AMARILLA (ESTILO YPF) ---
+void mostrarPantallaCarga(const char* texto) {
+    ocultarCursor(); 
+    setColor(COLOR_FONDO); 
+    system("cls");
+    
+    // 1. Logo YPF
+    dibujarLogoYPF(4);
+
+    // 2. Marco de la Barra
+    int ancho = getAnchoConsola();
+    int anchoBarra = 40;
+    int xBarra = (ancho - anchoBarra) / 2;
+    int yBarra = 15;
+
+    // Texto centrado
+    setColor(0x1E); // Amarillo
+    gotoxy((ancho - strlen(texto)) / 2, yBarra - 2); 
+    printf("%s", texto);
+    
+    // Dibujo del marco
+    setColor(COLOR_MARCO); 
+    gotoxy(xBarra - 1, yBarra); printf("%c", 201); 
+    gotoxy(xBarra + anchoBarra, yBarra); printf("%c", 187);
+    gotoxy(xBarra - 1, yBarra + 2); printf("%c", 200); 
+    gotoxy(xBarra + anchoBarra, yBarra + 2); printf("%c", 188);
+    
+    for(int i=0; i<anchoBarra; i++) { 
+        gotoxy(xBarra+i, yBarra); printf("%c", 205); 
+        gotoxy(xBarra+i, yBarra+2); printf("%c", 205); 
+    }
+    gotoxy(xBarra - 1, yBarra + 1); printf("%c", 186); 
+    gotoxy(xBarra + anchoBarra, yBarra + 1); printf("%c", 186);
+
+    // 3. Animacion Llenado
+    setColor(0x1E); // Amarillo
+    for(int i=0; i < anchoBarra; i++) {
+        gotoxy(xBarra + i, yBarra + 1); 
+        printf("%c", 219); 
+        Sleep(20); // Velocidad
+    }
+    Sleep(200); // Pausa final
+}
+
 
 // --- FUNCION PRINCIPAL ---
 
@@ -306,6 +350,81 @@ int mostrarMenuPrincipal() {
                 return 0;
             }
             return cursor + 1;
+        }
+    }
+}
+
+// --- SELECTOR FLOTANTE (SIN BORRAR FONDO) ---
+int mostrarSelectorFlotante(const char* titulo, const vector<string> &opciones, int x, int y) {
+    int cursor = 0;
+    char tecla;
+    int nOpciones = opciones.size();
+    
+    // Configurar tamaño de la caja
+    int anchoCaja = 40; 
+    int altoCaja = nOpciones + 2;
+    
+    // 1. DIBUJAR MARCO DE LA CAJITA
+    setColor(COLOR_MARCO);
+    
+    // Borde Superior
+    gotoxy(x, y); printf("%c", 201); 
+    for(int i=0; i<anchoCaja; i++) printf("%c", 205);
+    printf("%c", 187);
+    
+    // Borde Inferior
+    gotoxy(x, y + altoCaja + 1); printf("%c", 200); 
+    for(int i=0; i<anchoCaja; i++) printf("%c", 205);
+    printf("%c", 188);
+
+    // Laterales
+    for(int i=0; i < altoCaja; i++) {
+        gotoxy(x, y + 1 + i); printf("%c", 186);
+        gotoxy(x + anchoCaja + 1, y + 1 + i); printf("%c", 186);
+    }
+    
+    // Titulo del selector
+    setColor(0x1E); // Amarillo
+    gotoxy(x + 2, y); printf(" %s ", titulo);
+
+    ocultarCursor();
+
+    while(1) {
+        // 2. DIBUJAR OPCIONES
+        for(int i = 0; i < nOpciones; i++) {
+            gotoxy(x + 2, y + 1 + i); 
+            
+            if(i == cursor) {
+                setColor(COLOR_RESALTADO); 
+                printf(" >> %-32s << ", opciones[i].c_str());
+            } else {
+                setColor(COLOR_FONDO); 
+                printf("    %-32s    ", opciones[i].c_str());
+            }
+        }
+
+        // 3. CAPTURAR TECLAS
+        tecla = getch();
+        if(tecla == -32 || tecla == 224) { 
+            tecla = getch(); 
+            if(tecla == ARRIBA) {
+                cursor = (cursor > 0) ? cursor - 1 : nOpciones - 1;
+            }
+            if(tecla == ABAJO) {
+                cursor = (cursor < nOpciones - 1) ? cursor + 1 : 0;
+            }
+        } 
+        else if(tecla == ENTER) {
+            Beep(1000, 50);
+            
+            // 4. BORRAR LA CAJA ANTES DE IRSE (IMPORTANTE)
+            setColor(COLOR_FONDO);
+            for(int i=0; i <= altoCaja + 1; i++) {
+                gotoxy(x, y + i);
+                for(int j=0; j <= anchoCaja + 1; j++) printf(" ");
+            }
+            
+            return cursor;
         }
     }
 }

@@ -23,11 +23,9 @@ int main() {
 
         switch(opc) {
             case 1:
-            	printf("\n[1] Crear archivo seleccionado...\n");
-            	system("pause");
-            	system("cls");
-                carga_empleados();
-                break;
+            	mostrarPantallaCarga("INICIANDO MODULO...");
+			    carga_empleados();
+			    break;
             case 2:
                 printf("\n[2] Alta de empleado seleccionada...\n");
                 system("pause");
@@ -68,10 +66,6 @@ int main() {
                 break;
             default:
                 printf("\nOpcion invalida. Intente nuevamente.\n");
-        }
-        
-        if (opc != 0) {
-            system("pause");
         }
 
     } while (opc != 0);

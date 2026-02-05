@@ -1,17 +1,17 @@
 #ifndef CAMPOS_H
 #define CAMPOS_H
 
-struct reg
-{
+struct reg {
     char nombreapell[60];
     int legajo;
-	char puesto[10];
+    char puesto[20]; // Aumente un poco por si acaso
     int sueldo, edad;
     char turno[10];
-    char sexo[10];
-    char area[10];    
-    bool activo; // true = visible, false = borrado logicamente
+    char sexo[15];
+    char area[20];    
+    bool activo; 
 };
+
 void carga_empleados();
-void modificarEmpleado();
+// void modificarEmpleado(); // Descomenta cuando lo tengas
 #endif
