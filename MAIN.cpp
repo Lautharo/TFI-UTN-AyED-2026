@@ -15,7 +15,7 @@ int main() {
     // --- PASO 1: LOGIN / REGISTRO ---
     // Por ahora, llamamos directo a registrar para probar tu codigo.
     // En el futuro, aca iria un "iniciarSesion()".
-    registrarUsuario(); 
+    regUser(); 
 
     // --- PASO 2: SISTEMA PRINCIPAL ---
     do {
