@@ -161,7 +161,80 @@ void regUser() {
     printf("\n[!] Usuario registrado con exito!\n");
     system("pause");
 }
+// --- FUNCION 4: Iniciar Sesion ---
+bool iniciarSesion(char usuarioLogueado[]) {
+    FILE *f;
+    User u; 
+    char userIngresado[11];
+    char passIngresado[35];
+    bool encontrado = false;
 
+    // 1. Verificamos si existe el archivo. Si no, creamos un admin por defecto.
+    f = fopen("Usuarios.dat", "rb");
+    if (f == NULL) {
+        printf("\n[!] Archivo de usuarios no encontrado.\n");
+        printf("[!] Creando usuario administrador por defecto...\n");
+        
+        f = fopen("Usuarios.dat", "wb");
+        User admin;
+        // OJO: Este admin quizas no cumpla tus reglas de validacion (mayusculas etc)
+        // pero como lo grabamos directo, funciona igual.
+        strcpy(admin.usuario, "admin01"); 
+        strcpy(admin.contrasenia, "Admin123"); 
+        strcpy(admin.apeNom, "Administrador Sistema");
+        admin.rol = 1; // Rol de Admin
+        admin.activo = true;
+        
+        fwrite(&admin, sizeof(User), 1, f);
+        fclose(f);
+        
+        printf("[!] Usuario 'admin01' creado. Clave: 'Admin123'\n");
+        system("pause");
+        
+        f = fopen("Usuarios.dat", "rb"); // Lo volvemos a abrir para leer
+    }
+
+    system("cls");
+    printf("========================================\n");
+    printf("         INICIO DE SESION YPF           \n");
+    printf("========================================\n");
+
+    // 2. Pedimos los datos
+    printf("Usuario: ");
+    _flushall();
+    gets(userIngresado);
+
+    printf("Contrasenia: ");
+    capContra(passIngresado); // Usamos tu funcion de asteriscos
+    printf("\n");
+
+    // 3. Buscamos en el archivo
+    rewind(f);
+    while (fread(&u, sizeof(User), 1, f) == 1) {
+        // Comparamos Usuario, Contraseña y que esté Activo
+        if (strcmp(userIngresado, u.usuario) == 0 && 
+            strcmp(passIngresado, u.contrasenia) == 0 && 
+            u.activo == true) {
+            
+            encontrado = true;
+            strcpy(usuarioLogueado, u.usuario); // Devolvemos el nombre de usuario
+            // Opcional: Si necesitas el nombre real en el main, copia u.apeNom
+            break; 
+        }
+    }
+
+    fclose(f);
+
+    if (encontrado) {
+        printf("\n>>> Bienvenido al sistema!\n");
+        system("pause");
+        return true;
+    } else {
+        printf("\n[X] Error: Usuario o clave incorrectos.\n");
+        system("pause");
+        return false;
+    }
+}
 
 
 

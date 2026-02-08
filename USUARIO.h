@@ -15,5 +15,5 @@ void regUser();
 bool UserVal(char u[]);
 bool ContraVal(char c[]);
 void capContra(char pass[]);
-
+bool iniciarSesion(char usuarioLogueado[]);
 #endif
