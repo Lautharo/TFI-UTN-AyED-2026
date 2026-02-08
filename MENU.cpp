@@ -277,9 +277,10 @@ int mostrarMenuPrincipal() {
         "7. Consulta por clave",
         "8. Estructura Dinamica (Cargar)",
         "9. Estructura Dinamica (Mostrar)",
+        "10. Creditos/Autores",
         "0. Salir del Sistema"
     };
-    int nOpciones = 10;
+    int nOpciones = 11;
     int cursor = 0;
     char tecla;
     
@@ -347,7 +348,7 @@ int mostrarMenuPrincipal() {
             setColor(0x07); 
             system("cls");
             
-            if (cursor == 9) {
+            if (cursor == 10) {
                 detenerMusica(); // Apagar musica al salir del todo
                 return 0;
             }

@@ -29,7 +29,7 @@ IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
 CompilerSettings=0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;16;0;0;0
-UnitCount=23
+UnitCount=25
 
 [VersionInfo]
 Major=1
@@ -272,6 +272,26 @@ BuildCmd=
 
 [Unit23]
 FileName=MODIFICAR.h
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit24]
+FileName=CREDITOS.h
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit25]
+FileName=CREDITOS.cpp
 CompileCpp=1
 Folder=
 Compile=1

@@ -11,6 +11,7 @@
 #include "CONSULTA.h"
 #include "ARBOL.h"
 #include "MODIFICAR.h"
+#include "CREDITOS.h"
 
 int main() {
     int opc;
@@ -58,6 +59,9 @@ int main() {
                 break;
             case 9:
                 mostrarArbolOrdenado();
+                break;
+            case 10:
+                mostrarCreditos();
                 break;
             case 0:
                 mostrarSalida();
